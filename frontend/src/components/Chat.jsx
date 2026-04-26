@@ -1,47 +1,109 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
+
+function createBotMessage(text, kind = "message") {
+  return { role: "bot", text, kind };
+}
 
 export default function Chat() {
-  const [messages, setMessages] = useState([
-    { role: "bot", text: "Welcome! Let's assess your AI readiness." }
-  ]);
-
+  const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [currentNode, setCurrentNode] = useState("start");
+  const [currentOptions, setCurrentOptions] = useState([]);
+  const [conversationState, setConversationState] = useState("question");
 
-  const sendMessage = async () => {
-    if (!input.trim() || loading) return;
+  const loadStartNode = async () => {
+    setLoading(true);
+    setInput("");
 
-    const userMessage = input;
+    try {
+      const res = await fetch(`${API_BASE_URL}/chat`);
+      const data = await res.json();
 
-    // Add user message
-    setMessages(prev => [
-      ...prev,
-      { role: "user", text: userMessage }
-    ]);
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to load the chatbot.");
+      }
 
+      setCurrentNode(data.currentNode || "start");
+      setCurrentOptions(data.options || []);
+      setConversationState(data.status || "question");
+      setMessages([
+        createBotMessage("Welcome! Let's assess your AI readiness."),
+        createBotMessage(data.question || data.reply || "Let's begin.", "question")
+      ]);
+    } catch (err) {
+      setMessages([
+        createBotMessage(`Error connecting to server. ${err.message}`, "error")
+      ]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    let active = true;
+
+    if (active) {
+      loadStartNode();
+    }
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const sendMessage = async (messageOverride) => {
+    const userMessage = (messageOverride ?? input).trim();
+
+    if (!userMessage || loading || conversationState === "result") {
+      return;
+    }
+
+    setMessages((prev) => [...prev, { role: "user", text: userMessage }]);
     setInput("");
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:3000/chat", {
+      const res = await fetch(`${API_BASE_URL}/chat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ message: userMessage })
+        body: JSON.stringify({
+          message: userMessage,
+          currentNode
+        })
       });
 
       const data = await res.json();
 
-      // Add bot response
-      setMessages(prev => [
-        ...prev,
-        { role: "bot", text: data.reply }
-      ]);
+      if (!res.ok) {
+        throw new Error(data.error || "Request failed.");
+      }
+
+      setCurrentNode(data.currentNode || currentNode);
+      setCurrentOptions(data.options || []);
+      setConversationState(data.status || "question");
+
+      setMessages((prev) => {
+        const nextMessages = [...prev];
+
+        if (data.status === "clarification") {
+          nextMessages.push(createBotMessage(data.clarification || data.reply, "clarification"));
+        } else if (data.status === "result") {
+          nextMessages.push(createBotMessage(data.explanation || data.reply, "result"));
+        } else {
+          nextMessages.push(createBotMessage(data.question || data.reply, "question"));
+        }
+
+        return nextMessages;
+      });
     } catch (err) {
-      setMessages(prev => [
+      setMessages((prev) => [
         ...prev,
-        { role: "bot", text: "Error connecting to server." + err }
+        createBotMessage(`Error connecting to server. ${err.message}`, "error")
       ]);
     } finally {
       setLoading(false);
@@ -55,77 +117,65 @@ export default function Chat() {
   };
 
   return (
-    <div style={styles.container}>
-      <div style={styles.chatBox}>
-        {messages.map((m, i) => (
+    <div className="chat-shell">
+      <div className="chat-box">
+        {messages.map((message, index) => (
           <div
-            key={i}
-            style={{
-              ...styles.message,
-              alignSelf: m.role === "user" ? "flex-end" : "flex-start",
-              background: m.role === "user" ? "#DCF8C6" : "#EEE"
-            }}
+            key={index}
+            className={`chat-message ${message.role === "user" ? "user" : "bot"} ${message.kind || "message"}`}
           >
-            {m.text}
+            {message.text}
           </div>
         ))}
       </div>
 
-      <div style={styles.inputArea}>
+      {currentOptions.length > 0 && conversationState !== "result" && (
+        <div className="chat-options" aria-label="Suggested answers">
+          {currentOptions.map((option) => (
+            <button
+              key={option}
+              type="button"
+              className="chat-option"
+              onClick={() => sendMessage(option)}
+              disabled={loading}
+            >
+              {option}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {conversationState === "result" && (
+        <div className="chat-toolbar">
+          <button
+            type="button"
+            className="chat-reset"
+            onClick={loadStartNode}
+            disabled={loading}
+          >
+            Reset chat
+          </button>
+        </div>
+      )}
+
+      <div className="chat-input-row">
         <input
-          style={styles.input}
+          className="chat-input"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyPress}
-          placeholder="Type your answer..."
+          placeholder={conversationState === "result" ? "Conversation completed" : "Type your answer..."}
+          disabled={loading || conversationState === "result"}
         />
-        <button style={styles.button} onClick={sendMessage} disabled={loading}>
+        <button
+          type="button"
+          className="chat-send"
+          onClick={() => sendMessage()}
+          disabled={loading || conversationState === "result"}
+        >
           {loading ? "..." : "Send"}
         </button>
       </div>
     </div>
   );
 }
-
-const styles = {
-  container: {
-    maxWidth: "700px",
-    margin: "40px auto",
-    display: "flex",
-    flexDirection: "column",
-    border: "1px solid #ddd",
-    borderRadius: "10px",
-    padding: "20px",
-    background: "#fff"
-  },
-  chatBox: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "10px",
-    minHeight: "400px",
-    marginBottom: "15px"
-  },
-  message: {
-    padding: "10px 14px",
-    borderRadius: "10px",
-    maxWidth: "75%"
-  },
-  inputArea: {
-    display: "flex",
-    gap: "10px"
-  },
-  input: {
-    flex: 1,
-    padding: "10px",
-    borderRadius: "6px",
-    border: "1px solid #ccc"
-  },
-  button: {
-    padding: "10px 16px",
-    border: "none",
-    borderRadius: "6px",
-    background: "#333",
-    color: "#fff",
-    cursor: "pointer"
-  }
-};

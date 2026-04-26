@@ -1,0 +1,289 @@
+{
+  "start": {
+    "id": "start",
+    "type": "question",
+    "question": "Do you lack AI competence in your SME?",
+    "options": [
+      { "label": "Yes", "next": "ai_competence_strategy" },
+      { "label": "No", "next": "implementation_obstacles" }
+    ]
+  },
+  "ai_competence_strategy": {
+    "id": "ai_competence_strategy",
+    "type": "question",
+    "question": "When addressing your organization's lack of AI competence, which approach would you prioritize first?",
+    "options": [
+      {
+        "label": "Strengthen leadership-level AI understanding",
+        "result": "Focus on building leadership-level AI competence before scaling any initiatives.\n\nNext steps:\n1. Organize short executive workshops on AI fundamentals (what AI can and cannot do in your industry).\n2. Define 2-3 concrete business objectives where AI could create value (e.g., cost reduction, efficiency, forecasting).\n3. Conduct a basic feasibility assessment:\n   - Do you have the required data?\n   - Are processes stable enough for automation?\n4. Select 1-2 realistic, low-risk pilot use cases.\n5. Create a simple AI roadmap (3-6 months) before investing in tools or hiring.\n\nOutcome: Leadership gains clarity and avoids costly, misaligned AI investments."
+      },
+      {
+        "label": "Upskill employees and build internal capability",
+        "result": "Focus on strengthening internal capabilities to enable sustainable AI adoption.\n\nNext steps:\n1. Identify key roles that will interact with AI (operations, IT, analysts, managers).\n2. Start targeted training programs:\n   - Basic AI/data literacy for non-technical staff\n   - Applied tools training for technical roles\n3. Evaluate whether to hire or partner externally (consultants, universities, vendors).\n4. Form a small cross-functional AI team with clear ownership.\n5. Assign a pilot project to this team to apply newly built skills.\n\nOutcome: Your organization builds long-term capability instead of relying entirely on external solutions."
+      }
+    ]
+  },
+  "implementation_obstacles": {
+    "id": "implementation_obstacles",
+    "type": "question",
+    "question": "Do you have obstacles at AI implementation?",
+    "options": [
+      { "label": "Yes", "next": "implementation_strategy" },
+      { "label": "No", "next": "data_problems" }
+    ]
+  },
+  "implementation_strategy": {
+    "id": "implementation_strategy",
+    "type": "question",
+    "question": "When AI implementation is challenging, which action would you take first?",
+    "options": [
+      {
+        "label": "Focus on decision clarity",
+        "result": "Pause execution and focus on strategic clarity before continuing.\n\nNext steps:\n1. Clearly define the business problem AI should solve.\n2. Set measurable success criteria (KPIs such as cost reduction, accuracy improvement, or time savings).\n3. Educate leadership on realistic AI capabilities and limitations.\n4. Assess readiness:\n   - Data availability and quality\n   - Process maturity\n   - Technical infrastructure\n5. Prioritize use cases based on feasibility and impact.\n\nOutcome: You reduce risk of failed AI projects and ensure alignment with business goals."
+      },
+      {
+        "label": "Start with a small pilot",
+        "result": "Move forward with a controlled, low-risk pilot to learn through execution.\n\nNext steps:\n1. Select a narrowly scoped use case (one process, one department).\n2. Use simple, modular, and easy-to-integrate tools.\n3. Define a short timeline (4-8 weeks).\n4. Measure results using predefined KPIs.\n5. Decide whether to scale, adjust, or stop based on evidence.\n\nOutcome: You gain practical experience and reduce uncertainty through real results."
+      }
+    ]
+  },
+  "data_problems": {
+    "id": "data_problems",
+    "type": "question",
+    "question": "Do you have data problems in your SME?",
+    "options": [
+      { "label": "Yes", "next": "data_strategy" },
+      { "label": "No", "next": "it_infrastructure" }
+    ]
+  },
+  "data_strategy": {
+    "id": "data_strategy",
+    "type": "question",
+    "question": "What best describes your next priority regarding data?",
+    "options": [
+      {
+        "label": "Fix data foundation",
+        "result": "Prioritize building a strong and reliable data foundation before scaling AI.\n\nNext steps:\n1. Improve data quality:\n   - Clean inconsistent or duplicate data\n   - Standardize formats and definitions\n2. Establish data governance:\n   - Assign ownership\n   - Define rules and validation processes\n3. Improve infrastructure:\n   - Centralize storage (e.g., cloud or unified systems)\n   - Build simple data pipelines\n4. Ensure interoperability between systems.\n5. Introduce real-time data collection if relevant (e.g., sensors, IoT).\n\nOutcome: AI systems will be reliable and scalable because they are built on trustworthy data."
+      },
+      {
+        "label": "Improve data usage capability",
+        "result": "Focus on developing the ability to interpret and use existing data effectively.\n\nNext steps:\n1. Identify what data you already have and its potential value.\n2. Bring in or train data experts (analysts, AI specialists).\n3. Map data to business problems (what decisions could this data support?).\n4. Run exploratory analysis to identify high-value use cases.\n5. Start with small analytical or predictive pilots.\n\nOutcome: You unlock value from existing data without heavy infrastructure investment."
+      }
+    ]
+  },
+  "it_infrastructure": {
+    "id": "it_infrastructure",
+    "type": "question",
+    "question": "Do you have limited IT infrastructure slowing AI adoption?",
+    "options": [
+      { "label": "Yes", "next": "it_strategy" },
+      { "label": "No", "next": "top_management_barrier" }
+    ]
+  },
+  "it_strategy": {
+    "id": "it_strategy",
+    "type": "question",
+    "question": "What should be your priority regarding IT limitations?",
+    "options": [
+      {
+        "label": "Focus on monitoring and compliance",
+        "result": "Track regulatory changes, update governance, and continuously monitor AI performance and risks."
+      },
+      {
+        "label": "Focus on strategy clarity first",
+        "result": "Define AI objectives, assess feasibility, and select realistic use cases before investing in infrastructure."
+      }
+    ]
+  },
+  "top_management_barrier": {
+    "id": "top_management_barrier",
+    "type": "question",
+    "question": "Is top management slowing down AI implementation?",
+    "options": [
+      { "label": "Yes", "next": "management_strategy" },
+      { "label": "No", "next": "regulation_barrier" }
+    ]
+  },
+  "management_strategy": {
+    "id": "management_strategy",
+    "type": "question",
+    "question": "What should top management prioritize?",
+    "options": [
+      {
+        "label": "Strategic clarity",
+        "result": "Top management should establish clear direction for AI adoption.\n\nNext steps:\n1. Define AI objectives aligned with business strategy.\n2. Identify and prioritize high-impact use cases.\n3. Conduct feasibility and readiness assessments.\n4. Develop a structured AI roadmap.\n5. Communicate strategy clearly across the organization.\n\nOutcome: AI initiatives become focused, measurable, and aligned with business goals."
+      },
+      {
+        "label": "Enable execution",
+        "result": "Top management should enable the organization to execute AI initiatives effectively.\n\nNext steps:\n1. Invest in training and hiring for AI-related roles.\n2. Establish cross-functional teams with clear ownership.\n3. Provide necessary resources (budget, tools, time).\n4. Encourage a culture of experimentation and learning.\n5. Reduce internal resistance through transparent communication.\n\nOutcome: The organization becomes capable of implementing AI, not just planning it."
+      }
+    ]
+  },
+  "regulation_barrier": {
+    "id": "regulation_barrier",
+    "type": "question",
+    "question": "Are changing AI regulations slowing adoption?",
+    "options": [
+      { "label": "Yes", "next": "regulation_strategy" },
+      { "label": "No", "next": "security_barrier" }
+    ]
+  },
+  "regulation_strategy": {
+    "id": "regulation_strategy",
+    "type": "question",
+    "question": "What is your approach to regulation challenges?",
+    "options": [
+      {
+        "label": "Plan before investing",
+        "result": "Strengthen leadership understanding, define objectives, and prioritize high-value use cases before committing budget."
+      },
+      {
+        "label": "Start with cost-efficient execution",
+        "result": "Run small pilots using modular tools and iterate before scaling investments."
+      }
+    ]
+  },
+  "security_barrier": {
+    "id": "security_barrier",
+    "type": "question",
+    "question": "Is IT security a barrier to AI adoption?",
+    "options": [
+      { "label": "Yes", "next": "security_strategy" },
+      { "label": "No", "next": "financial_constraints" }
+    ]
+  },
+  "security_strategy": {
+    "id": "security_strategy",
+    "type": "question",
+    "question": "What should be prioritized regarding security concerns?",
+    "options": [
+      {
+        "label": "Ethical governance and transparency",
+        "result": "Establish strong governance and trust mechanisms for AI.\n\nNext steps:\n1. Define internal policies for responsible AI use.\n2. Assign accountability for AI decisions and oversight.\n3. Document how AI systems work and how decisions are made.\n4. Conduct regular risk and impact assessments.\n5. Ensure compliance with data protection regulations.\n\nOutcome: AI adoption becomes trustworthy, compliant, and sustainable."
+      },
+      {
+        "label": "Clarify AI use cases first",
+        "result": "Focus on defining AI applications before implementing governance structures.\n\nNext steps:\n1. Identify specific AI use cases relevant to your business.\n2. Define success criteria and boundaries for each use case.\n3. Evaluate risks and requirements per use case.\n4. Then design governance and transparency measures tailored to those applications.\n\nOutcome: Governance becomes practical and relevant instead of overly abstract."
+      }
+    ]
+  },
+  "financial_constraints": {
+    "id": "financial_constraints",
+    "type": "question",
+    "question": "Are financial constraints limiting AI adoption?",
+    "options": [
+      { "label": "Yes", "next": "financial_strategy" },
+      { "label": "No", "next": "confidence_barrier" }
+    ]
+  },
+  "financial_strategy": {
+    "id": "financial_strategy",
+    "type": "question",
+    "question": "What is your approach to financial limitations?",
+    "options": [
+      {
+        "label": "Build clarity before investing",
+        "result": "Reduce financial risk by planning before committing resources.\n\nNext steps:\n1. Define clear AI objectives.\n2. Conduct feasibility and readiness assessments.\n3. Identify a shortlist of high-value use cases.\n4. Estimate expected ROI before investment.\n5. Allocate budget incrementally.\n\nOutcome: You avoid unnecessary spending and focus only on high-impact initiatives."
+      },
+      {
+        "label": "Start small and prove value",
+        "result": "Demonstrate value quickly through low-cost experimentation.\n\nNext steps:\n1. Launch a small pilot with minimal investment.\n2. Use existing tools and infrastructure where possible.\n3. Track measurable outcomes (cost, efficiency, quality).\n4. Use results to justify further investment.\n\nOutcome: AI adoption becomes financially controlled and evidence-driven."
+      }
+    ]
+  },
+  "confidence_barrier": {
+    "id": "confidence_barrier",
+    "type": "question",
+    "question": "Does your company lack confidence in its AI capabilities?",
+    "options": [
+      { "label": "Yes", "next": "confidence_strategy" },
+      { "label": "No", "next": "skills_gap" }
+    ]
+  },
+  "confidence_strategy": {
+    "id": "confidence_strategy",
+    "type": "result",
+    "result": "Build organizational confidence through early, visible success.\n\nNext steps:\n1. Select a low-risk, high-visibility pilot project.\n2. Keep scope small and timeline short.\n3. Use simple tools that require minimal expertise.\n4. Share results internally to build trust and momentum.\n5. Use lessons learned to expand gradually.\n\nOutcome: Confidence grows through proven results rather than assumptions."
+  },
+  "skills_gap": {
+    "id": "skills_gap",
+    "type": "question",
+    "question": "Do employees need improvement in AI-related skills?",
+    "options": [
+      { "label": "Yes", "next": "skills_strategy" },
+      { "label": "No", "next": "structure_barrier" }
+    ]
+  },
+  "skills_strategy": {
+    "id": "skills_strategy",
+    "type": "question",
+    "question": "What should be prioritized for workforce development?",
+    "options": [
+      {
+        "label": "Structured team and roles",
+        "result": "Establish clear roles, cross-functional coordination, and ownership for AI initiatives."
+      },
+      {
+        "label": "Learning by doing",
+        "result": "Start with a pilot and train employees based on real skill gaps identified during execution."
+      }
+    ]
+  },
+  "structure_barrier": {
+    "id": "structure_barrier",
+    "type": "question",
+    "question": "Is lack of organizational structure slowing AI implementation?",
+    "options": [
+      { "label": "Yes", "next": "structure_strategy" },
+      { "label": "No", "next": "customer_barrier" }
+    ]
+  },
+  "structure_strategy": {
+    "id": "structure_strategy",
+    "type": "result",
+    "result": "Establish structure through practical execution instead of upfront design.\n\nNext steps:\n1. Create a small cross-functional pilot team.\n2. Assign clear roles and responsibilities.\n3. Execute one pilot project.\n4. Identify structural gaps during execution.\n5. Formalize processes and governance based on real needs.\n\nOutcome: Organizational structure evolves based on what actually works."
+  },
+  "customer_barrier": {
+    "id": "customer_barrier",
+    "type": "question",
+    "question": "Do customer-related barriers affect AI adoption?",
+    "options": [
+      { "label": "Yes", "next": "customer_strategy" },
+      { "label": "No", "next": "data_model_issue" }
+    ]
+  },
+  "customer_strategy": {
+    "id": "customer_strategy",
+    "type": "question",
+    "question": "What should be prioritized regarding customer concerns?",
+    "options": [
+      {
+        "label": "Trust and transparency",
+        "result": "Communicate clearly about AI use, ensure accountability, and monitor ethical impacts."
+      },
+      {
+        "label": "Sustainability value",
+        "result": "Use AI to improve sustainability outcomes and communicate measurable benefits to customers."
+      }
+    ]
+  },
+  "data_model_issue": {
+    "id": "data_model_issue",
+    "type": "question",
+    "question": "Do you have an incorrect or incomplete data model?",
+    "options": [
+      { "label": "Yes", "next": "data_model_strategy" },
+      { "label": "No", "next": "end" }
+    ]
+  },
+  "data_model_strategy": {
+    "id": "data_model_strategy",
+    "type": "result",
+    "result": "Improve your data model iteratively through real use cases.\n\nNext steps:\n1. Select a single process for a pilot (e.g., maintenance or quality control).\n2. Identify where the data model fails during implementation.\n3. Fix definitions, missing fields, and integrations incrementally.\n4. Validate improvements with real outputs.\n5. Expand improvements to other areas.\n\nOutcome: Your data model becomes practical and aligned with real AI needs."
+  },
+  "end": {
+    "id": "end",
+    "type": "result",
+    "result": "Your organization does not face major structural barriers to AI adoption.\n\nNext steps:\n1. Refine your AI strategy and roadmap.\n2. Scale existing successful AI initiatives.\n3. Continuously monitor performance and impact.\n4. Improve efficiency and explore innovation opportunities.\n5. Ensure long-term sustainability and ethical alignment.\n\nOutcome: You transition from adoption to optimization and innovation."
+  }
+}
